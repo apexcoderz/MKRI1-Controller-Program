@@ -18,15 +18,15 @@ Servo servoGripper;
 Preferences preferences; 
 
 static const uint8_t PIN_LED_STATUS = 2; 
-static const uint8_t PIN_IR_SENSOR  = 34; 
-static const uint8_t PIN_ENA = 13; 
-static const uint8_t PIN_IN1 = 12; 
-static const uint8_t PIN_IN2 = 14; 
-static const uint8_t PIN_IN3 = 27; 
-static const uint8_t PIN_IN4 = 26; 
-static const uint8_t PIN_ENB = 25; 
-static const uint8_t PIN_SERVO_ARM     = 33;
-static const uint8_t PIN_SERVO_GRIPPER = 32;
+static const uint8_t PIN_IR_SENSOR  = 35; 
+static const uint8_t PIN_ENA = 25; 
+static const uint8_t PIN_IN1 = 26; 
+static const uint8_t PIN_IN2 = 27; 
+static const uint8_t PIN_IN3 = 23; 
+static const uint8_t PIN_IN4 = 22; 
+static const uint8_t PIN_ENB = 21; 
+static const uint8_t PIN_SERVO_ARM     = 19;
+static const uint8_t PIN_SERVO_GRIPPER = 18;
 
 String inputBuffer = "";
 uint8_t SPEED_NORMAL = 180; 
@@ -130,6 +130,10 @@ void processCommand(uint8_t cmd) {
     Serial.println((char)cmd); 
     
     switch (cmd) {
+
+        case 'X': currentSpeed = SPEED_BOOST; break;
+        case 'x': currentSpeed = SPEED_NORMAL; break;
+
         case 'F': controlMotor( 1,  1, currentSpeed); break;
         case 'B': controlMotor(-1, -1, currentSpeed); break;
         case 'L': controlMotor(-1,  1, currentSpeed); break; 
@@ -143,9 +147,6 @@ void processCommand(uint8_t cmd) {
         case 'O': isGripperOpening = true; isGripperClosing = false; break;
         case 'C': isGripperClosing = true; isGripperOpening = false; break;
         case 'c': isGripperOpening = false; isGripperClosing = false; break;
-
-        case 'X': currentSpeed = SPEED_BOOST; break;
-        case 'x': currentSpeed = SPEED_NORMAL; break;
 
         default: break;
     }
